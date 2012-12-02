@@ -48,6 +48,11 @@ def to_float_hours(hours, minutes, seconds):
    >>> to_float_hours(1, 0, 36)
    1.01
    '''
+   toFloatHours = float(hours)
+   toFloatMinutes = float(minutes)
+   toFloatSeconds = float(seconds)
+
+   return toFloatHours + (toFloatMinutes / 60) + ((toFloatSeconds / 60) / 60)
 
 def to_24_hour_clock(hours):
     '''(number) -> number
@@ -72,16 +77,54 @@ def to_24_hour_clock(hours):
     return hours % 24
 
 ### Write your get_hours function definition here:
+def get_hours(seconds):
+    '''(int) -> int
+
+    Return the number of hours that have elapsed since midnight, as seen on a 24-hour clock.
+
+    Precondition:
+        seconds >= 0
+
+    >>> get_hours(3800)
+    1
+    '''
+    hours = seconds / 60 / 60
+    return to_24_hour_clock(hours)
 
 ### Write your get_minutes function definition here:
+def get_minutes(seconds):
+    '''(int) -> int
+
+    Return the number of minutes that have elapsed since midnight, as seen on a 24-hour clock.
+
+    Precondition:
+        seconds >= 0
+
+    >>> get_minutes(3800)
+    3
+    '''
+    return (seconds / 60) % 10
 
 ### Write your get_seconds function definition here:
+def get_seconds(seconds):
+    '''(int) -> int
+
+    Return the number of seconds that have elapsed since midnight, as seen on a 24-hour clock.
+
+    Precondition:
+        seconds >= 0
+
+    >>> get_seconds(3800)
+    20
+    '''
+    return int(((seconds / 60.0) % 1) * 60)
 
 def time_to_utc(utc_offset, time):
     '''(number, float) -> float
 
     Return time at UTC+0, where utc_offset is the number of hours away from
-    UTC+0.
+    UTC+0. The first parameter is a UTC offset specifying a time zone and the 
+    second parameter is a time in that time zone. Return the equivalent UTC+0 time.
 
     >>> time_to_utc(+0, 12.0)
     12.0
@@ -96,6 +139,9 @@ def time_to_utc(utc_offset, time):
     >>> time_to_utc(-1, 23.0)
     0.0
     '''
+    result = to_24_hour_clock(time - utc_offset)
+
+    return float(result)
 
 def time_from_utc(utc_offset, time):
     '''(number, float) -> float
@@ -119,3 +165,6 @@ def time_from_utc(utc_offset, time):
     >>> time_from_utc(+1, 23.0)
     0.0
     '''
+    result = to_24_hour_clock(time + utc_offset)
+
+    return float(result)
