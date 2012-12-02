@@ -7,7 +7,7 @@
     public class TimeFunctionsTests
     {
         private TimeFunctions timeFunctions = 
-            new TimeFunctions(@"C:\Users\Jon-Standard\Documents\Visual Studio 2010\Projects\LearnToProgramAssignments\Assignment1\TimeFunctions.py");
+            new TimeFunctions("TimeFunctions.py");
 
         [TestCase(1800.0, 1800.0, 0.0)]
         [TestCase(1800.0, 3600.0, 1800.0)]
