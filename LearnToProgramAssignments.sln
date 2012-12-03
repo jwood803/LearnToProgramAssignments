@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment1", "Assignment1\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnToProgramAssignments.Tests", "LearnToProgramAssignments.Tests\LearnToProgramAssignments.Tests.csproj", "{8E5BD399-EF42-40A1-9A01-A5FE0201233B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment2", "Assignment2\Assignment2.csproj", "{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{8E5BD399-EF42-40A1-9A01-A5FE0201233B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8E5BD399-EF42-40A1-9A01-A5FE0201233B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8E5BD399-EF42-40A1-9A01-A5FE0201233B}.Release|x86.ActiveCfg = Release|Any CPU
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Debug|x86.ActiveCfg = Debug|x86
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Debug|x86.Build.0 = Debug|x86
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Release|Any CPU.ActiveCfg = Release|x86
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Release|Mixed Platforms.Build.0 = Release|x86
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Release|x86.ActiveCfg = Release|x86
+		{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

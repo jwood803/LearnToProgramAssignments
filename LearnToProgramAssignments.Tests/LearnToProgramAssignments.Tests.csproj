@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DnaFunctionsTests.cs" />
     <Compile Include="TimeFunctionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,6 +54,10 @@
     <ProjectReference Include="..\Assignment1\Assignment1.csproj">
       <Project>{E564A979-C0DC-4260-B5A2-6AB934D18A19}</Project>
       <Name>Assignment1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Assignment2\Assignment2.csproj">
+      <Project>{9E5587BA-F432-4F26-9AB8-A1C16DA75C8A}</Project>
+      <Name>Assignment2</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

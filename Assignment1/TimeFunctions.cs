@@ -5,164 +5,175 @@
 // -----------------------------------------------------------------------
 namespace Assignment1
 {
-    using System;
-    using IronPython.Hosting;
-    using Microsoft.Scripting.Hosting;
-    using System.Diagnostics;
-    using System.Diagnostics.Contracts;
+	using System;
+	using IronPython.Hosting;
+	using Microsoft.Scripting.Hosting;
+	using System.Diagnostics.Contracts;
 
-    /// <summary>
-    /// Functions to call the Python script with arguments and return the result
-    /// </summary>
-    public class TimeFunctions
-    {
-        ScriptSource scriptSource;
-        CompiledCode compiledCode;
+	/// <summary>
+	/// Functions to call the Python script with arguments and return the result
+	/// </summary>
+	public class TimeFunctions
+	{
+		ScriptSource scriptSource;
+		CompiledCode compiledCode;
 
-        public TimeFunctions ()
-	    {}
+		public TimeFunctions()
+		{
+			//TODO: Default script path
+		}
 
-        public TimeFunctions(string scriptPath)
-        {
-            this.ScriptPath = scriptPath;
-        }
+		public TimeFunctions(string scriptPath)
+		{
+			this.ScriptPath = scriptPath;
+		}
 
-        public string ScriptPath { get; set; }
+		public string ScriptPath { get; set; }
 
-        public double GetSecondsDifference(double time1, double time2)
-        {
-            Debug.Assert(time1 > 0, "time1 > 0");
-            Debug.Assert(time2 > 0, "time2 > 0");
+		public double GetSecondsDifference(double time1, double time2)
+		{
+            Contract.Requires(time1 >= 0);
+            Contract.Requires(time2 >= 0);
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<double>() >= double.MinValue);
 
-            var engine = CreatePythonEngineWithSourceFile();
+			var engine = CreatePythonEngineWithSourceFile();
 
-            var scope = engine.CreateScope();
+			var scope = engine.CreateScope();
 
-            compiledCode.Execute(scope);
+			compiledCode.Execute(scope);
 
-            dynamic f_Seconds_Difference = scope.GetVariable("seconds_difference");
+			dynamic f_Seconds_Difference = scope.GetVariable("seconds_difference");
 
-            return (double)engine.Operations.Invoke(f_Seconds_Difference, time1, time2);
-        }
+			return (double)engine.Operations.Invoke(f_Seconds_Difference, time1, time2);
+		}
 
-        public double GetHoursDifference(double time1, double time2)
-        {
-            Debug.Assert(time1 > 0, "time1 > 0");
-            Debug.Assert(time2 > 0, "time2 > 0");
+		public double GetHoursDifference(double time1, double time2)
+		{
+            Contract.Requires(time1 >= 0);
+            Contract.Requires(time2 >= 0);
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<double>() >= double.MinValue);
 
-            var engine = CreatePythonEngineWithSourceFile();
+			var engine = CreatePythonEngineWithSourceFile();
 
-            var scope = engine.CreateScope();
+			var scope = engine.CreateScope();
 
-            compiledCode.Execute(scope);
+			compiledCode.Execute(scope);
 
-            dynamic f_Hours_Difference = scope.GetVariable("hours_difference");
+			dynamic f_Hours_Difference = scope.GetVariable("hours_difference");
 
-            return (double)engine.Operations.Invoke(f_Hours_Difference, time1, time2);
-        }
+			return (double)engine.Operations.Invoke(f_Hours_Difference, time1, time2);
+		}
 
-        public double GetFloatHours(int hours, int minutes, int secods)
-        {
-            Debug.Assert(hours >= 0, "hours > 0");
-            Debug.Assert(minutes >= 0, "minutes > 0");
-            Debug.Assert(secods >= 0, "secods > 0");
+		public double GetFloatHours(int hours, int minutes, int secods)
+		{
+            Contract.Requires(hours >= 0);
+            Contract.Requires(minutes >= 0);
+            Contract.Requires(secods >= 0);
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<double>() >= 0);
 
-            var engine = CreatePythonEngineWithSourceFile();
+			var engine = CreatePythonEngineWithSourceFile();
+			var scope = engine.CreateScope();
 
-            var scope = engine.CreateScope();
+			compiledCode.Execute(scope);
 
-            compiledCode.Execute(scope);
+			dynamic f_Get_Float_Hours = scope.GetVariable("to_float_hours");
 
-            dynamic f_Get_Float_Hours = scope.GetVariable("to_float_hours");
+			return (double)engine.Operations.Invoke(f_Get_Float_Hours, hours, minutes, secods);
+		}
 
-            return (double)engine.Operations.Invoke(f_Get_Float_Hours, hours, minutes, secods);
-        }
+		public int GetHoursFromMidnight(int seconds)
+		{
+			Contract.Requires(seconds >= 0);
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<int>() >= 0);
 
-        public int GetHoursFromMidnight(int seconds)
-        {
-            Contract.Requires(seconds >= 0);
+			var engine = CreatePythonEngineWithSourceFile();
+			var scope = engine.CreateScope();
 
-            var engine = CreatePythonEngineWithSourceFile();
+			compiledCode.Execute(scope);
 
-            var scope = engine.CreateScope();
+			dynamic f_Get_Hours = scope.GetVariable("get_hours");
 
-            compiledCode.Execute(scope);
+			return (int)engine.Operations.Invoke(f_Get_Hours, seconds);
+		}
 
-            dynamic f_Get_Hours = scope.GetVariable("get_hours");
+		public int GetMinutesFromMidnight(int seconds)
+		{
+			Contract.Requires(seconds >= 0);
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<int>() >= 0);
 
-            return (int)engine.Operations.Invoke(f_Get_Hours, seconds);
-        }
+			var engine = CreatePythonEngineWithSourceFile();
+			var scope = engine.CreateScope();
 
-        public int GetMinutesFromMidnight(int seconds)
-        {
-            Contract.Requires(seconds >= 0);
+			compiledCode.Execute(scope);
 
-            var engine = CreatePythonEngineWithSourceFile();
+			dynamic f_Get_Minutes = scope.GetVariable("get_minutes");
 
-            var scope = engine.CreateScope();
+			return (int)engine.Operations.Invoke(f_Get_Minutes, seconds);
+		}
 
-            compiledCode.Execute(scope);
+		public int GetSecondsFromMidnight(int seconds)
+		{
+			Contract.Requires(seconds >= 0);
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<int>() >= 0);
 
-            dynamic f_Get_Minutes = scope.GetVariable("get_minutes");
+			var engine = CreatePythonEngineWithSourceFile();
+			var scope = engine.CreateScope();
 
-            return (int)engine.Operations.Invoke(f_Get_Minutes, seconds);
-        }
+			compiledCode.Execute(scope);
 
-        public int GetSecondsFromMidnight(int seconds)
-        {
-            Contract.Requires(seconds >= 0);
+			dynamic f_Get_Seconds = scope.GetVariable("get_seconds");
 
-            var engine = CreatePythonEngineWithSourceFile();
+			return (int)engine.Operations.Invoke(f_Get_Seconds, seconds);
+		}
 
-            var scope = engine.CreateScope();
+		public double GetTimeToUtc(int utcTimeZone, double time)
+		{
+			Contract.Requires(utcTimeZone >= int.MinValue);
+			Contract.Requires(time >= 0);
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<double>() >= double.MinValue);
 
-            compiledCode.Execute(scope);
+			var engine = CreatePythonEngineWithSourceFile();
+			var scope = engine.CreateScope();
 
-            dynamic f_Get_Seconds = scope.GetVariable("get_seconds");
+			compiledCode.Execute(scope);
 
-            return (int)engine.Operations.Invoke(f_Get_Seconds, seconds);
-        }
+			dynamic f_Get_Time_To_Utc = scope.GetVariable("time_to_utc");
 
-        public double GetTimeToUtc(int utcTimeZone, double time)
-        {
-            Contract.Requires(utcTimeZone >= 0);
-            Contract.Requires(time >= 0);
+			return (double)engine.Operations.Invoke(f_Get_Time_To_Utc, utcTimeZone, time);
+		}
 
-            var engine = CreatePythonEngineWithSourceFile();
+		public double GetTimeFromUtc(int utcOffset, double time)
+		{
+			Contract.Requires(utcOffset >= int.MinValue);
+			Contract.Requires(time >= 0);
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<double>() >= double.MinValue);
 
-            var scope = engine.CreateScope();
+			var engine = CreatePythonEngineWithSourceFile();
+			var scope = engine.CreateScope();
 
-            compiledCode.Execute(scope);
+			compiledCode.Execute(scope);
 
-            dynamic f_Get_Time_To_Utc = scope.GetVariable("time_to_utc");
+			dynamic f_Get_Time_From_Utc = scope.GetVariable("time_from_utc");
 
-            return (double)engine.Operations.Invoke(f_Get_Time_To_Utc, utcTimeZone, time);
-        }
+			return (double)engine.Operations.Invoke(f_Get_Time_From_Utc, utcOffset, time);
+		}
 
-        public double GetTimeFromUtc(int utcOffset, double time)
-        {
-            Contract.Requires(utcOffset >= 0);
-            Contract.Requires(time >= 0);
+		private ScriptEngine CreatePythonEngineWithSourceFile()
+		{
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
 
-            var engine = CreatePythonEngineWithSourceFile();
-
-            var scope = engine.CreateScope();
-
-            compiledCode.Execute(scope);
-
-            dynamic f_Get_Time_From_Utc = scope.GetVariable("time_from_utc");
-
-            return (double)engine.Operations.Invoke(f_Get_Time_From_Utc, utcOffset, time);
-        }
-
-        private ScriptEngine CreatePythonEngineWithSourceFile()
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(this.ScriptPath), "this.ScriptPath is null or empty");
-
-            var engine = Python.CreateEngine();
-            scriptSource = engine.CreateScriptSourceFromFile(this.ScriptPath);
-            compiledCode = scriptSource.Compile();
-            return engine;
-        }
-    }
+			var engine = Python.CreateEngine();
+			scriptSource = engine.CreateScriptSourceFromFile(this.ScriptPath);
+			compiledCode = scriptSource.Compile();
+			return engine;
+		}
+	}
 }
