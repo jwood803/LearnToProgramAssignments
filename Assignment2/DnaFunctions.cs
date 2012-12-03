@@ -127,6 +127,22 @@ namespace Assignment2
             return (string)engine.Operations.Invoke(f_Insert_Sequence, dna, input, index);
         }
 
+        public string GetNucleotideCompliment(string nucleotide)
+        {
+            Contract.Requires(!string.IsNullOrWhiteSpace(nucleotide));
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<string>() != string.Empty);
+
+            var engine = CreatePythonEngineWithSourceFile();
+            var scope = engine.CreateScope();
+
+            compiledCode.Execute(scope);
+
+            dynamic f_Get_Compliment = scope.GetVariable("get_compliment");
+
+            return (string)engine.Operations.Invoke(f_Get_Compliment, nucleotide);
+        }
+
         private ScriptEngine CreatePythonEngineWithSourceFile()
         {
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));

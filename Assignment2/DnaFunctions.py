@@ -80,9 +80,9 @@ def insert_sequence(dna, input, index):
     return dna[:index] + input + dna[index:]
 
 def get_compliment(nucleotide):
-    ''' (str, str, int) -> str
+    ''' (str) -> str
 
-    Return the nucleotide's complement. 
+    Return the nucleotide's compliment. 
 
     >>> get_compliment('A')
     T
@@ -95,4 +95,19 @@ def get_compliment(nucleotide):
     cg = ['C', 'G']
 
     if(nucleotide in ta):
-        return 
+        ta.remove(nucleotide)
+        return ta[0]
+
+    if(nucleotide in cg):
+        cg.remove(nucleotide)
+        return cg[0]
+
+def get_complimentary_sequence():
+    ''' (str) -> str
+
+    Return the sequence's compliment. 
+
+    >>> get_compliment('ACGTACG')
+    TGCATGC
+    '''
+    

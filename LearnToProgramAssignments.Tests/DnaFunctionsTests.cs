@@ -57,5 +57,13 @@ namespace LearnToProgramAssignments.Tests
         {
             Assert.AreEqual(result, dnaFunctions.InsertSequence(dna, input, index));
         }
+
+        [TestCase("A", "T")]
+        [TestCase("G", "C")]
+        [TestCase("C", "G")]
+        public void GetNucleotideCompliment_Tests(string nucleotide, string result)
+        {
+            Assert.AreEqual(result, dnaFunctions.GetNucleotideCompliment(nucleotide));
+        }
     }
 }
