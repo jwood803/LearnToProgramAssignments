@@ -102,7 +102,7 @@ def get_compliment(nucleotide):
         cg.remove(nucleotide)
         return cg[0]
 
-def get_complimentary_sequence():
+def get_complimentary_sequence(sequence):
     ''' (str) -> str
 
     Return the sequence's compliment. 
@@ -110,4 +110,16 @@ def get_complimentary_sequence():
     >>> get_compliment('ACGTACG')
     TGCATGC
     '''
-    
+    returnString = ''
+
+    for char in sequence:
+        if(char == 'A'):
+            returnString += 'T'
+        elif(char == 'C'):
+            returnString += 'G'
+        elif(char == 'G'):
+            returnString += 'C'
+        else:
+            returnString += 'A'
+
+    return returnString

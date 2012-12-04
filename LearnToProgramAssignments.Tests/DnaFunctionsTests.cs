@@ -65,5 +65,11 @@ namespace LearnToProgramAssignments.Tests
         {
             Assert.AreEqual(result, dnaFunctions.GetNucleotideCompliment(nucleotide));
         }
+
+        [TestCase("ACGTACG", "TGCATGC")]
+        public void GetSequenceCompliment_Tests(string sequence, string result)
+        {
+            Assert.AreEqual(result, dnaFunctions.GetSequenceCompliment(sequence));
+        }
     }
 }

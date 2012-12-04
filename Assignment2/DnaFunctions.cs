@@ -143,6 +143,22 @@ namespace Assignment2
             return (string)engine.Operations.Invoke(f_Get_Compliment, nucleotide);
         }
 
+        public string GetSequenceCompliment(string sequence)
+        {
+            Contract.Requires(!string.IsNullOrWhiteSpace(sequence));
+            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
+            Contract.Ensures(Contract.Result<string>() != string.Empty);
+
+            var engine = CreatePythonEngineWithSourceFile();
+            var scope = engine.CreateScope();
+
+            compiledCode.Execute(scope);
+
+            dynamic f_Get_Sequence_Compliment = scope.GetVariable("get_complimentary_sequence");
+
+            return (string)engine.Operations.Invoke(f_Get_Sequence_Compliment, sequence);
+        }
+
         private ScriptEngine CreatePythonEngineWithSourceFile()
         {
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
