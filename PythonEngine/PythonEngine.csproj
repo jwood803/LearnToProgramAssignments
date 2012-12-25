@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8E5BD399-EF42-40A1-9A01-A5FE0201233B}</ProjectGuid>
+    <ProjectGuid>{9C4BABAA-7543-47BB-976D-25920B691E03}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LearnToProgramAssignments.Tests</RootNamespace>
-    <AssemblyName>LearnToProgramAssignments.Tests</AssemblyName>
+    <RootNamespace>PythonEngine</RootNamespace>
+    <AssemblyName>PythonEngine</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,9 +34,10 @@
     <Reference Include="IronPython, Version=2.7.0.40, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>../../../../../../../Program%20Files%20(x86)/IronPython%202.7/IronPython.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    <Reference Include="IronPython.Modules, Version=2.7.0.40, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>../../../../../../../Program%20Files%20(x86)/IronPython%202.7/IronPython.Modules.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,28 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DnaFunctionsTests.cs" />
-    <Compile Include="TestHelper.cs" />
-    <Compile Include="TimeFunctionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WordSearchGameFunctionsTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Assignment1\Assignment1.csproj">
-      <Project>{8E13F3AD-E1C7-474B-9646-9C573449D31F}</Project>
-      <Name>Assignment1</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Assignment2\Assignment2.csproj">
-      <Project>{520D2B1F-FFC6-480E-A4D9-7B58FD0C029A}</Project>
-      <Name>Assignment2</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Assignment3\Assignment3.csproj">
-      <Project>{F6E87CB3-1740-4655-877B-85D47264F15D}</Project>
-      <Name>Assignment3</Name>
-    </ProjectReference>
+    <Compile Include="PythonEngine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,6 +2,7 @@
 {
     using Assignment1;
     using NUnit.Framework;
+    using System;
 
     [TestFixture]
     public class TimeFunctionsTests
@@ -58,7 +59,7 @@
         [TestCase(-11, 18.0, 5.0)]
         [TestCase(-1, 0.0, 1.0)]
         [TestCase(-1, 23.0, 0.0)]
-        public void GetGetTimeToUtc_Tests(int utcOffset, double time, double result)
+        public void GetTimeToUtc_Tests(int utcOffset, double time, double result)
         {
             Assert.AreEqual(result, timeFunctions.GetTimeToUtc(utcOffset, time));
         }
@@ -71,7 +72,7 @@
         [TestCase(-1, 0.0, 23.0)]
         [TestCase(-1, 23.0, 22.0)]
         [TestCase(1, 23.0, 0)]
-        public void GetGetTimeFromUtc_Tests(int utcOffset, double time, double result)
+        public void GetTimeFromUtc_Tests(int utcOffset, double time, double result)
         {
             Assert.AreEqual(result, timeFunctions.GetTimeFromUtc(utcOffset, time));
         }

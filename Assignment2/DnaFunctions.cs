@@ -6,25 +6,24 @@
 namespace Assignment2
 {
     using System.Diagnostics.Contracts;
-    using IronPython.Hosting;
-    using Microsoft.Scripting.Hosting;
+    using PythonEnine;
 
     /// <summary>
     /// Functions that call the Python functions in the DnaFunctions.py script
     /// </summary>
     public class DnaFunctions
     {
-        private ScriptSource scriptSource;
-        private CompiledCode compiledCode;
-
+        private PythonEngine engine;
+        
         public DnaFunctions()
         { 
-            //TODO: Default script path 
+            //TODO: Default script path
         }
 
         public DnaFunctions(string scriptPath)
         {
             this.ScriptPath = scriptPath;
+            engine = new PythonEngine(this.ScriptPath);
         }
 
         public string ScriptPath { get; set; }
@@ -35,14 +34,7 @@ namespace Assignment2
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
             Contract.Ensures(Contract.Result<int>() >= 0);
 
-            var engine = CreatePythonEngineWithSourceFile();
-            var scope = engine.CreateScope();
-
-            compiledCode.Execute(scope);
-
-            dynamic f_Get_Length = scope.GetVariable("get_length");
-
-            return (int)engine.Operations.Invoke(f_Get_Length, dna);
+            return (int)engine.InvokeMethodWithParameters("get_length", dna);
         }
 
         public bool IsLonger(string dna1, string dna2)
@@ -51,14 +43,7 @@ namespace Assignment2
             Contract.Requires(!string.IsNullOrWhiteSpace(dna2));
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
 
-            var engine = CreatePythonEngineWithSourceFile();
-            var scope = engine.CreateScope();
-
-            compiledCode.Execute(scope);
-
-            dynamic f_Is_Longer = scope.GetVariable("is_longer");
-
-            return (bool)engine.Operations.Invoke(f_Is_Longer, dna1, dna2);
+            return (bool)engine.InvokeMethodWithParameters("is_longer", dna1, dna2);
         }
 
         public int GetNucleotideCount(string dna, string nucleotide)
@@ -68,14 +53,7 @@ namespace Assignment2
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
             Contract.Ensures(Contract.Result<int>() >= 0);
 
-            var engine = CreatePythonEngineWithSourceFile();
-            var scope = engine.CreateScope();
-
-            compiledCode.Execute(scope);
-
-            dynamic f_Count_Nucleotides = scope.GetVariable("count_nucleotides");
-
-            return (int)engine.Operations.Invoke(f_Count_Nucleotides, dna, nucleotide);
+            return (int)engine.InvokeMethodWithParameters("count_nucleotides", dna, nucleotide);
         }
 
         public bool HasNucleotideSequence(string dna1, string dna2)
@@ -84,14 +62,7 @@ namespace Assignment2
             Contract.Requires(!string.IsNullOrWhiteSpace(dna2));
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
 
-            var engine = CreatePythonEngineWithSourceFile();
-            var scope = engine.CreateScope();
-
-            compiledCode.Execute(scope);
-
-            dynamic f_Contains_Sequence = scope.GetVariable("contains_sequence");
-
-            return (bool)engine.Operations.Invoke(f_Contains_Sequence, dna1, dna2);
+            return (bool)engine.InvokeMethodWithParameters("contains_sequence", dna1, dna2);
         }
 
         public bool IsValidDnaSequence(string dna)
@@ -99,14 +70,7 @@ namespace Assignment2
             Contract.Requires(!string.IsNullOrWhiteSpace(dna));
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
 
-            var engine = CreatePythonEngineWithSourceFile();
-            var scope = engine.CreateScope();
-
-            compiledCode.Execute(scope);
-
-            dynamic f_Is_Valid_Sequence = scope.GetVariable("is_valid_sequence");
-
-            return (bool)engine.Operations.Invoke(f_Is_Valid_Sequence, dna);
+            return (bool)engine.InvokeMethodWithParameters("is_valid_sequence", dna);
         }
 
         public string InsertSequence(string dna, string input, int index)
@@ -117,14 +81,7 @@ namespace Assignment2
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
             Contract.Ensures(Contract.Result<string>() != string.Empty);
 
-            var engine = CreatePythonEngineWithSourceFile();
-            var scope = engine.CreateScope();
-
-            compiledCode.Execute(scope);
-
-            dynamic f_Insert_Sequence = scope.GetVariable("insert_sequence");
-
-            return (string)engine.Operations.Invoke(f_Insert_Sequence, dna, input, index);
+            return (string)engine.InvokeMethodWithParameters("insert_sequence", dna, input, index);
         }
 
         public string GetNucleotideCompliment(string nucleotide)
@@ -133,14 +90,7 @@ namespace Assignment2
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
             Contract.Ensures(Contract.Result<string>() != string.Empty);
 
-            var engine = CreatePythonEngineWithSourceFile();
-            var scope = engine.CreateScope();
-
-            compiledCode.Execute(scope);
-
-            dynamic f_Get_Compliment = scope.GetVariable("get_compliment");
-
-            return (string)engine.Operations.Invoke(f_Get_Compliment, nucleotide);
+            return (string)engine.InvokeMethodWithParameters("get_compliment", nucleotide);
         }
 
         public string GetSequenceCompliment(string sequence)
@@ -149,24 +99,7 @@ namespace Assignment2
             Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
             Contract.Ensures(Contract.Result<string>() != string.Empty);
 
-            var engine = CreatePythonEngineWithSourceFile();
-            var scope = engine.CreateScope();
-
-            compiledCode.Execute(scope);
-
-            dynamic f_Get_Sequence_Compliment = scope.GetVariable("get_complimentary_sequence");
-
-            return (string)engine.Operations.Invoke(f_Get_Sequence_Compliment, sequence);
-        }
-
-        private ScriptEngine CreatePythonEngineWithSourceFile()
-        {
-            Contract.Requires(!string.IsNullOrWhiteSpace(this.ScriptPath));
-
-            var engine = Python.CreateEngine();
-            this.scriptSource = engine.CreateScriptSourceFromFile(this.ScriptPath);
-            this.compiledCode = scriptSource.Compile();
-            return engine;
+            return (string)engine.InvokeMethodWithParameters("get_complimentary_sequence", sequence);
         }
     }
 }
