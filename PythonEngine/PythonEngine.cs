@@ -27,8 +27,6 @@ namespace PythonEnine
 
         public dynamic InvokeMethodWithParameters(string methodName, params object[] parameters)
         {
-            dynamic pythonMethod;
-
             engine = Python.CreateEngine();
             scriptSource = engine.CreateScriptSourceFromFile(this.Script);
             compiledCode = scriptSource.Compile();
@@ -36,7 +34,7 @@ namespace PythonEnine
 
             compiledCode.Execute(scope);
 
-            scope.TryGetVariable(methodName, out pythonMethod);
+            dynamic pythonMethod = scope.GetVariable(methodName);
 
             return engine.Operations.Invoke(pythonMethod, parameters);
         }

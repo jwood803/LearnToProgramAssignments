@@ -1,9 +1,6 @@
 ﻿namespace Assignment3
 {
     using System.Diagnostics.Contracts;
-    using IronPython.Hosting;
-    using IronPython.Runtime;
-    using Microsoft.Scripting.Hosting;
     using PythonEnine;
 
     public class WordSearchGameFunctions
@@ -23,7 +20,7 @@
 
         public string ScriptPath { get; set; }
 
-        public bool IsValidWord(List wordList, string word)
+        public bool IsValidWord(System.Collections.Generic.List<string> wordList, string word)
         {
             Contract.Requires(wordList != null);
             Contract.Requires(!string.IsNullOrWhiteSpace(word));

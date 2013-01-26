@@ -1,4 +1,6 @@
-﻿'''A board is a list of list of str. For example, the board
+﻿from System.Collections.Generic import List
+
+'''A board is a list of list of str. For example, the board
     ANTT
     XSOB
 is represented as the list
@@ -20,7 +22,9 @@ def is_valid_word(wordlist, word):
     >>> is_valid_word(['ANT', 'BOX', 'SOB', 'TO'], 'TO')
     True
     '''
-    return word in wordlist
+    words = List[str](wordlist)
+
+    return word in words
 
 def make_str_from_row(board, row_index):
     ''' (list of list of str, int) -> str
@@ -33,6 +37,7 @@ def make_str_from_row(board, row_index):
     '''
     result = ''
 
+    
     if(row_index <= len(board) - 1):
         for list in board[row_index]:
             for element in list:
@@ -66,10 +71,9 @@ def board_contains_word_in_row(board, word):
 
     for row_index in range(len(board)):
         if word in make_str_from_row(board, row_index):
-            return True
+            return true
 
-    return False
-
+    return false
 
 def board_contains_word_in_column(board, word):
     ''' (list of list of str, str) -> bool

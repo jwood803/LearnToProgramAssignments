@@ -5,13 +5,10 @@
 // -----------------------------------------------------------------------
 namespace LearnToProgramAssignments.Tests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using NUnit.Framework;
+    using System.Collections;
     using Assignment3;
-    using IronPython.Runtime;
+    using NUnit.Framework;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Tests for the WordSearchGameFunctions class
@@ -19,13 +16,17 @@ namespace LearnToProgramAssignments.Tests
     [TestFixture]
     public class WordSearchGameFunctionsTests
     {
-        private WordSearchGameFunctions gameFunctions = new WordSearchGameFunctions("WordSearchGameFunctions.py");
+        private WordSearchGameFunctions gameFunctions = new WordSearchGameFunctions("WordSearchGame.py");
 
-        //[TestCase(new List, "TO")]
-        public void IsWordValid_Tests(string[] wordList, string word, bool result)
+        [Test]
+        public void IsWordValid_Tests()
         {
-            //TestHelper.ExpectException<Exception>(() => gameFunctions.IsValidWord(wordList, word), "Exception should happen");
-            //Assert.AreEqual(result, gameFunctions.IsValidWord(wordList, word));
+            var words = new List<string>
+            {
+                "ANT", "BOX", "SOB", "TO"
+            };
+
+            Assert.IsTrue(gameFunctions.IsValidWord(words, "TO"));
         }
     }
 }
